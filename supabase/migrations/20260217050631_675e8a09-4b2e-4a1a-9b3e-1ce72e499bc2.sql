@@ -1,0 +1,1 @@
+ALTER TABLE public.knowledge_rooms ADD COLUMN created_by text NOT NULL DEFAULT 'sistema';

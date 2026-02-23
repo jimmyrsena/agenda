@@ -1,0 +1,390 @@
+/* TipTap Editor Styles */
+
+.tiptap {
+  outline: none;
+}
+
+/* First line indent from ruler */
+.tiptap > p {
+  text-indent: var(--first-line-indent, 0);
+}
+
+.tiptap > ul,
+.tiptap > ol {
+  padding-left: calc(1.5em + var(--hanging-indent, 0px));
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: hsl(var(--muted-foreground) / 0.4);
+  pointer-events: none;
+  height: 0;
+}
+
+/* Headings */
+.tiptap h1 { font-size: 2em; font-weight: 700; margin: 0.67em 0; }
+.tiptap h2 { font-size: 1.5em; font-weight: 600; margin: 0.75em 0; }
+.tiptap h3 { font-size: 1.25em; font-weight: 600; margin: 0.83em 0; }
+.tiptap h4 { font-size: 1.1em; font-weight: 600; margin: 1em 0; }
+
+/* Lists */
+.tiptap ul { list-style: disc; padding-left: 1.5em; margin: 0.5em 0; }
+.tiptap ol { list-style: decimal; padding-left: 1.5em; margin: 0.5em 0; }
+.tiptap li { margin: 0.25em 0; }
+.tiptap li p { margin: 0; }
+
+/* Task list */
+.tiptap-task-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.tiptap-task-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+}
+
+.tiptap-task-list li label {
+  display: flex;
+  align-items: center;
+  margin-top: 0.15em;
+}
+
+.tiptap-task-list li label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: hsl(var(--primary));
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.tiptap-task-list li[data-checked="true"] > div > p {
+  text-decoration: line-through;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Blockquote */
+.tiptap blockquote {
+  border-left: 4px solid hsl(var(--primary) / 0.4);
+  padding-left: 1em;
+  margin: 1em 0;
+  font-style: italic;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Code */
+.tiptap code {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+  padding: 0.15em 0.3em;
+  font-size: 0.9em;
+  font-family: 'Fira Code', monospace;
+}
+
+.tiptap pre {
+  background: hsl(var(--muted));
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 1em 0;
+  overflow-x: auto;
+}
+
+.tiptap pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Table */
+.tiptap table,
+.tiptap-table {
+  border-collapse: collapse;
+  width: auto;
+  min-width: 200px;
+  max-width: 100%;
+  margin: 1em 0;
+  table-layout: auto;
+  position: relative;
+}
+
+.tiptap table td,
+.tiptap table th,
+.tiptap-table td,
+.tiptap-table th {
+  border: 1.5px solid hsl(var(--foreground) / 0.25);
+  padding: 6px 10px;
+  min-width: 60px;
+  min-height: 28px;
+  vertical-align: top;
+  position: relative;
+}
+
+.tiptap table th,
+.tiptap-table th {
+  background: hsl(var(--muted) / 0.5);
+  font-weight: 600;
+  text-align: left;
+}
+
+.tiptap table td.is-selected,
+.tiptap table th.is-selected,
+.tiptap-table td.is-selected,
+.tiptap-table th.is-selected {
+  background: hsl(var(--primary) / 0.12);
+}
+
+/* Gridlines hidden mode */
+.tiptap-no-gridlines table td,
+.tiptap-no-gridlines table th {
+  border-color: transparent;
+}
+
+.tiptap-no-gridlines table td:hover,
+.tiptap-no-gridlines table th:hover {
+  border-color: hsl(var(--border) / 0.4);
+}
+
+/* Resize handle for table columns */
+.tiptap .column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: hsl(var(--primary) / 0.4);
+  cursor: col-resize;
+  z-index: 10;
+}
+
+.tiptap .column-resize-handle:hover {
+  background: hsl(var(--primary) / 0.7);
+}
+
+.tiptap .selectedCell:after {
+  z-index: 2;
+  position: absolute;
+  content: "";
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: hsl(var(--primary) / 0.08);
+  pointer-events: none;
+}
+
+/* Table resize grip (bottom-right corner) */
+.tiptap .tableWrapper {
+  position: relative;
+  overflow: visible;
+  margin: 1em 0;
+}
+
+.tiptap .tableWrapper::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  cursor: nwse-resize;
+  background:
+    linear-gradient(135deg, transparent 50%, hsl(var(--primary) / 0.3) 50%);
+  border-radius: 0 0 2px 0;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.tiptap .tableWrapper:hover::after {
+  opacity: 1;
+}
+
+/* Image */
+.tiptap img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 0.5em 0;
+  cursor: pointer;
+  transition: outline 0.15s;
+}
+
+.tiptap img.ProseMirror-selectednode,
+.tiptap img[data-resizable].ProseMirror-selectednode {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Resizable image */
+.resizable-image-wrap {
+  position: relative;
+}
+
+.resizable-image-wrap img[data-resizable] {
+  cursor: ew-resize;
+}
+
+.resizable-image-wrap img[data-resizable]:hover {
+  outline: 1px dashed hsl(var(--primary) / 0.4);
+  outline-offset: 3px;
+}
+
+/* Shape container */
+.shape-container {
+  user-select: none;
+}
+
+.shape-container svg {
+  display: inline-block;
+}
+
+.shape-container:hover {
+  outline: 1px dashed hsl(var(--primary) / 0.3);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Text box */
+.text-box-container {
+  transition: box-shadow 0.15s;
+}
+
+.text-box-container:hover {
+  box-shadow: 0 0 0 1px hsl(var(--primary) / 0.3);
+}
+
+/* Equations */
+.eq-block {
+  display: inline-block;
+  font-family: 'Cambria Math', 'Latin Modern Math', 'STIX Two Math', 'Times New Roman', serif;
+  font-size: 1.1em;
+  padding: 2px 6px;
+  background: hsl(var(--muted) / 0.3);
+  border-radius: 4px;
+  margin: 0 2px;
+}
+
+.eq-large {
+  font-size: 1.5em;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.eq-func {
+  font-style: normal;
+  font-weight: 500;
+}
+
+.eq-fraction {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
+.eq-fraction .eq-num {
+  border-bottom: 1px solid currentColor;
+  padding: 0 4px 2px;
+  line-height: 1.2;
+}
+
+.eq-fraction .eq-den {
+  padding: 2px 4px 0;
+  line-height: 1.2;
+}
+
+/* Horizontal rule */
+.tiptap hr {
+  border: none;
+  border-top: 2px solid hsl(var(--border));
+  margin: 1.5em 0;
+}
+
+/* Links */
+.tiptap a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tiptap a:hover {
+  opacity: 0.8;
+}
+
+/* Marks */
+.tiptap mark {
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+.tiptap sub, .tiptap sup {
+  font-size: 0.75em;
+}
+
+/* Page break */
+.tiptap .page-break {
+  border-top: 2px dashed hsl(var(--border));
+  margin: 2em 0;
+  position: relative;
+}
+
+.tiptap .page-break::after {
+  content: 'Quebra de Página';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: hsl(var(--card));
+  padding: 0 8px;
+  font-size: 9px;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Selection */
+.tiptap ::selection {
+  background: hsl(var(--primary) / 0.2);
+}
+
+/* Gapcursor */
+.tiptap .ProseMirror-gapcursor::after {
+  border-color: hsl(var(--foreground));
+}
+
+/* Paragraph spacing from document settings */
+.tiptap > p {
+  margin-top: var(--spacing-before, 0);
+  margin-bottom: var(--spacing-after, 8pt);
+}
+
+/* Track changes visual */
+.track-changes-active .tiptap ins,
+.track-changes-active .tiptap [data-track-insert] {
+  background: hsl(120 60% 80% / 0.3);
+  text-decoration: underline;
+  text-decoration-color: hsl(120 60% 40%);
+}
+
+.track-changes-active .tiptap del,
+.track-changes-active .tiptap [data-track-delete] {
+  background: hsl(0 60% 80% / 0.3);
+  text-decoration: line-through;
+  text-decoration-color: hsl(0 60% 40%);
+}
+
+/* ========= Paginated paper (visual page breaks) ========= */
+.caderno-paginated-paper {
+  background-color: hsl(var(--card));
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  position: relative;
+  /* Visual page separator lines — a thicker band to simulate page gap */
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent calc(var(--page-height) - 2px),
+      hsl(var(--muted) / 0.7) calc(var(--page-height) - 2px),
+      hsl(var(--muted-foreground) / 0.25) calc(var(--page-height) - 1px),
+      hsl(var(--muted) / 0.7) var(--page-height),
+      transparent calc(var(--page-height) + 1px)
+    );
+  background-size: 100% var(--page-height);
+}
