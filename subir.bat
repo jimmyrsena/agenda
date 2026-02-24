@@ -1,8 +1,7 @@
-@echo off
-cd /d "C:\_sistemas2026\agenda"
-REM Remover supabase do git (causa erro build)
-rmdir /s /q supabase 2>nul
+REM Salve como fix.bat e execute
+cd C:\_sistemas2026\agenda
+git rm -r --cached supabase 2>nul
+echo supabase/ >> .gitignore
 git add .
-git commit -m "Remove supabase local - fix deploy"
+git commit -m "Fix: remove supabase from build"
 git push
-echo ✅ Novo deploy em 30s. URL: https://agenda-orcin-pi.vercel.app/
