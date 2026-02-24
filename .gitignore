@@ -3,3 +3,7 @@ supabase/functions/
 dist/ 
 .env 
 supabase/ 
+supabase/ 
+dist/ 
+node_modules/ 
+.env 
